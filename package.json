@@ -1,18 +1,12 @@
 {
-  "name": "ejs-projects",
+  "name": "task-manager",
   "version": "1.0.0",
-  "description": "An EJS + Express.js project deployed on Vercel",
-  "main": "api/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.18.2",
-    "serverless-http": "^3.2.0"
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
   }
 }

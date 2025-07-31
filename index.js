@@ -3,18 +3,18 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Ensure ./files folder exists
 if (!fs.existsSync("./files")) {
   fs.mkdirSync("./files");
 }
 
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// Home page - list tasks
 app.get("/", (req, res) => {
   fs.readdir("./files", (err, files) => {
     if (err) return res.status(500).send("Failed to read task list");
@@ -22,9 +22,8 @@ app.get("/", (req, res) => {
   });
 });
 
-// Create task
 app.post("/create", (req, res) => {
-  const fileName = req.body.title.trim().split(" ").join("") + ".txt";
+  const fileName = req.body.title.trim().replace(/\s+/g, "") + ".txt";
   const filePath = path.join(__dirname, "files", fileName);
   fs.writeFile(filePath, req.body.details, (err) => {
     if (err) return res.status(500).send("Failed to create task");
@@ -32,7 +31,6 @@ app.post("/create", (req, res) => {
   });
 });
 
-// Read task
 app.get("/file/:fileName", (req, res) => {
   const filePath = path.join(__dirname, "files", req.params.fileName);
   fs.readFile(filePath, "utf-8", (err, data) => {
@@ -44,7 +42,6 @@ app.get("/file/:fileName", (req, res) => {
   });
 });
 
-// Delete task
 app.get("/delete/:fileName", (req, res) => {
   const filePath = path.join(__dirname, "files", req.params.fileName);
   fs.unlink(filePath, (err) => {
@@ -53,5 +50,4 @@ app.get("/delete/:fileName", (req, res) => {
   });
 });
 
-// app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
-module.exports = app;
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
