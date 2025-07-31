@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Task Manager</title>
- <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </head>
@@ -63,7 +63,12 @@
           </div>
           <% }) %>
             <% } else { %>
-              <p class="text-zinc-400 text-center w-full">No tasks yet.</p>
+              <p
+                class="w-full text-center text-[20px] font-mono tracking-tight font-bold bg-gradient-to-r from-[#a21caf] via-[#be185d] to-[#b91c1c] bg-clip-text text-transparent ">
+                No tasks yet.
+              </p>
+
+
               <% } %>
     </div>
   </div>
